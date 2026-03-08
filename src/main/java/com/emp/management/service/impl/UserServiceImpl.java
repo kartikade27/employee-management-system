@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundExceptions("User not found"));
 
         if (user.getRole().equals(Role.ADMIN)) {
-            throw new IllegalArgumentException("Admin account cannot be deactivated");
+            throw new ResourceAlreadyExistsExceptions("Admin account cannot be deactivated");
         }
 
         if (!user.getIsActive()) {
