@@ -10,11 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
@@ -23,26 +19,29 @@ import lombok.Setter;
 @Builder
 public class EmployeeRequest {
 
-    @NotBlank(message = "First name is required !")
+    public interface Create {}
+    public interface Update {}
+
+    @NotBlank(message = "First name is required !", groups = Create.class)
     private String firstName;
 
-    @NotBlank(message = "Last name is required !")
+    @NotBlank(message = "Last name is required !", groups = Create.class)
     private String lastName;
 
     @Email(message = "Email should be valid !")
-    @NotBlank(message = "Email is required !")
+    @NotBlank(message = "Email is required !", groups = Create.class)
     private String email;
 
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
     private String phoneNumber;
 
-    @NotNull(message = "Gender is required !")
+    @NotNull(message = "Gender is required !", groups = Create.class)
     private Gender gender;
 
-    @NotNull(message = "Date of birth is required")
+    @NotNull(message = "Date of birth is required", groups = Create.class)
     private LocalDate dateOfBirth;
 
-    @NotNull(message = "Joining date is required")
+    @NotNull(message = "Joining date is required", groups = Create.class)
     private LocalDate joiningDate;
 
     @Positive(message = "Salary must be positive")
@@ -50,11 +49,10 @@ public class EmployeeRequest {
 
     private EmployeeStatus status;
 
-    @NotBlank(message = "Designation is required")
+    @NotBlank(message = "Designation is required", groups = Create.class)
     private String designation;
 
     private String userId;
 
     private String departmentId;
-
 }
